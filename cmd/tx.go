@@ -878,3 +878,11 @@ func ensureKeysExist(chains map[string]*relayer.Chain) error {
 
 	return nil
 }
+
+func getTimeout(cmd *cobra.Command) (time.Duration, error) {
+	to, err := cmd.Flags().GetString(flagTimeout)
+	if err != nil {
+		return 0, err
+	}
+	return time.ParseDuration(to)
+}

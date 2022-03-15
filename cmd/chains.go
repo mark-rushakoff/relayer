@@ -462,3 +462,21 @@ func addChainsFromRegistry(a *appState, chains []string) error {
 
 	return nil
 }
+
+func getAddInputs(cmd *cobra.Command) (file string, url string, err error) {
+	file, err = cmd.Flags().GetString(flagFile)
+	if err != nil {
+		return
+	}
+
+	url, err = cmd.Flags().GetString(flagURL)
+	if err != nil {
+		return
+	}
+
+	if file != "" && url != "" {
+		return "", "", errMultipleAddFlags
+	}
+
+	return
+}

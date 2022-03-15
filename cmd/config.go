@@ -116,7 +116,7 @@ $ %s cfg list`, appName, defaultHome, appName)),
 		},
 	}
 
-	return yamlFlag(a.Viper, jsonFlag(a.Viper, cmd))
+	return newFlagger(a.Viper, cmd).JSON().YAML().Command()
 }
 
 // Command for inititalizing an empty config at the --home location
