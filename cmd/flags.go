@@ -8,7 +8,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-var (
+const (
 	flagURL                     = "url"
 	flagSkip                    = "skip"
 	flagTimeout                 = "timeout"
@@ -68,7 +68,7 @@ func yamlFlag(v *viper.Viper, cmd *cobra.Command) *cobra.Command {
 }
 
 func skipConfirm(v *viper.Viper, cmd *cobra.Command) *cobra.Command {
-	cmd.Flags().BoolP(flagSkip, "y", false, "output using yaml")
+	cmd.Flags().BoolP(flagSkip, "y", false, "answer yes to all questions")
 	if err := v.BindPFlag(flagSkip, cmd.Flags().Lookup(flagSkip)); err != nil {
 		panic(err)
 	}
