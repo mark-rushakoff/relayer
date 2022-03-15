@@ -35,7 +35,7 @@ Most of these commands take a [path] argument. Make sure:
 		relayMsgCmd(a),
 		relayAcksCmd(a),
 		xfersend(a),
-		flags.LineBreak,
+		lineBreakCommand(),
 		createClientsCmd(a),
 		createClientCmd(a),
 		updateClientsCmd(a),
@@ -43,7 +43,7 @@ Most of these commands take a [path] argument. Make sure:
 		//upgradeChainCmd(),
 		createConnectionCmd(a),
 		closeChannelCmd(a),
-		flags.LineBreak,
+		lineBreakCommand(),
 
 		//sendCmd(),
 	)
