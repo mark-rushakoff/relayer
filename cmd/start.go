@@ -28,7 +28,6 @@ import (
 	"time"
 
 	"github.com/avast/retry-go"
-	"github.com/spf13/viper"
 
 	"github.com/cosmos/relayer/relayer"
 	"github.com/spf13/cobra"
@@ -37,7 +36,7 @@ import (
 
 // startCmd represents the start command
 // NOTE: This is basically pseudocode
-func startCmd() *cobra.Command {
+func startCmd(a *appState) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:     "start [path-name]",
 		Aliases: []string{"st"},
@@ -47,7 +46,7 @@ func startCmd() *cobra.Command {
 $ %s start demo-path --max-msgs 3
 $ %s start demo-path2 --max-tx-size 10`, appName, appName)),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			c, src, dst, err := config.ChainsFromPath(args[0])
+			c, src, dst, err := a.Config.ChainsFromPath(args[0])
 			if err != nil {
 				return err
 			}
@@ -56,7 +55,7 @@ $ %s start demo-path2 --max-tx-size 10`, appName, appName)),
 				return err
 			}
 
-			path := config.Paths.MustGet(args[0])
+			path := a.Config.Paths.MustGet(args[0])
 			maxTxSize, maxMsgLength, err := GetStartOptions(cmd)
 			if err != nil {
 				return err
@@ -78,7 +77,7 @@ $ %s start demo-path2 --max-tx-size 10`, appName, appName)),
 				c[src].Log(fmt.Sprintf("relayer start error. Err: %v", err))
 			}
 
-			thresholdTime := viper.GetDuration(flagThresholdTime)
+			thresholdTime := a.Viper.GetDuration(flagThresholdTime)
 
 			eg := new(errgroup.Group)
 			eg.Go(func() error {
@@ -104,7 +103,7 @@ $ %s start demo-path2 --max-tx-size 10`, appName, appName)),
 			return nil
 		},
 	}
-	return strategyFlag(updateTimeFlags(cmd))
+	return strategyFlag(a.Viper, updateTimeFlags(a.Viper, cmd))
 }
 
 // trap signal waits for a SIGINT or SIGTERM and then sends down the done channel
