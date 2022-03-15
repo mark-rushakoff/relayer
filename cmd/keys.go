@@ -167,7 +167,7 @@ $ %s k d ibc-2 testkey`, appName, appName, appName)),
 		},
 	}
 
-	return skipConfirm(a.Viper, cmd)
+	return newFlagger(a.Viper, cmd).SkipConfirm().Command()
 }
 
 func askForConfirmation(stdin io.Reader, stderr io.Writer) bool {

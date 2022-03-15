@@ -5,6 +5,7 @@ import (
 	"github.com/spf13/viper"
 )
 
+// flagger provides a builder pattern to add flags to a cobra Command.
 type flagger struct {
 	v   *viper.Viper
 	cmd *cobra.Command
@@ -15,6 +16,13 @@ func newFlagger(v *viper.Viper, cmd *cobra.Command) *flagger {
 		v:   v,
 		cmd: cmd,
 	}
+}
+
+// Command terminates the builder and returns the underlying command.
+//
+//    return newFlagger(v, cmd).Foo().Bar().Command()
+func (f *flagger) Command() *cobra.Command {
+	return f.cmd
 }
 
 func (f *flagger) IBCDenom() *flagger {
@@ -41,8 +49,6 @@ func (f *flagger) SkipConfirm() *flagger {
 	skipConfirm(f.v, f.cmd)
 	return f
 }
-
-// func (f *flagger) ChainsAdd
 
 func (f *flagger) Path() *flagger {
 	pathFlag(f.v, f.cmd)

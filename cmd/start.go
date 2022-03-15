@@ -103,7 +103,7 @@ $ %s start demo-path2 --max-tx-size 10`, appName, appName)),
 			return nil
 		},
 	}
-	return strategyFlag(a.Viper, updateTimeFlags(a.Viper, cmd))
+	return newFlagger(a.Viper, cmd).UpdateTime().Command()
 }
 
 // trap signal waits for a SIGINT or SIGTERM and then sends down the done channel

@@ -114,7 +114,8 @@ $ %s ch s ibc-0 --yaml`, appName, appName, appName, appName)),
 			}
 		},
 	}
-	return jsonFlag(a.Viper, cmd)
+
+	return newFlagger(a.Viper, cmd).JSON().Command()
 }
 
 func chainsDeleteCmd(a *appState) *cobra.Command {
@@ -181,7 +182,8 @@ func chainsRegistryList(a *appState) *cobra.Command {
 			return nil
 		},
 	}
-	return yamlFlag(a.Viper, jsonFlag(a.Viper, cmd))
+
+	return newFlagger(a.Viper, cmd).YAML().JSON().Command()
 }
 
 func chainsListCmd(a *appState) *cobra.Command {
@@ -253,7 +255,8 @@ $ %s ch l`, appName, appName)),
 			}
 		},
 	}
-	return yamlFlag(a.Viper, jsonFlag(a.Viper, cmd))
+
+	return newFlagger(a.Viper, cmd).YAML().JSON().Command()
 }
 
 func chainsAddCmd(a *appState) *cobra.Command {
@@ -298,7 +301,7 @@ func chainsAddCmd(a *appState) *cobra.Command {
 		},
 	}
 
-	return chainsAddFlags(a.Viper, cmd)
+	return newFlagger(a.Viper, cmd).File().URL().Command()
 }
 
 func chainsAddDirCmd(a *appState) *cobra.Command {

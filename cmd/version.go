@@ -27,7 +27,7 @@ type versionInfo struct {
 }
 
 func getVersionCmd(a *appState) *cobra.Command {
-	versionCmd := &cobra.Command{
+	cmd := &cobra.Command{
 		Use:     "version",
 		Aliases: []string{"v"},
 		Short:   "Print the relayer version info",
@@ -61,5 +61,5 @@ $ %s v`,
 		},
 	}
 
-	return jsonFlag(a.Viper, versionCmd)
+	return newFlagger(a.Viper, cmd).JSON().Command()
 }

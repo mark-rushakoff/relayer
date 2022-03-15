@@ -75,12 +75,6 @@ func skipConfirm(v *viper.Viper, cmd *cobra.Command) *cobra.Command {
 	return cmd
 }
 
-func chainsAddFlags(v *viper.Viper, cmd *cobra.Command) *cobra.Command {
-	fileFlag(v, cmd)
-	urlFlag(v, cmd)
-	return cmd
-}
-
 func pathFlag(v *viper.Viper, cmd *cobra.Command) *cobra.Command {
 	cmd.Flags().StringP(flagPath, "p", "", "specify the path to relay over")
 	if err := v.BindPFlag(flagPath, cmd.Flags().Lookup(flagPath)); err != nil {

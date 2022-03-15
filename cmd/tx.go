@@ -149,7 +149,7 @@ func createClientsCmd(a *appState) *cobra.Command {
 		},
 	}
 
-	return overrideFlag(a.Viper, clientParameterFlags(a.Viper, cmd))
+	return newFlagger(a.Viper, cmd).ClientParameters().Override().Command()
 }
 
 func createClientCmd(a *appState) *cobra.Command {
@@ -238,7 +238,7 @@ func createClientCmd(a *appState) *cobra.Command {
 		},
 	}
 
-	return overrideFlag(a.Viper, clientParameterFlags(a.Viper, cmd))
+	return newFlagger(a.Viper, cmd).ClientParameters().Override().Command()
 }
 
 func updateClientsCmd(a *appState) *cobra.Command {
@@ -306,7 +306,7 @@ func upgradeClientsCmd(a *appState) *cobra.Command {
 		},
 	}
 
-	return heightFlag(a.Viper, cmd)
+	return newFlagger(a.Viper, cmd).Height().Command()
 }
 
 func createConnectionCmd(a *appState) *cobra.Command {
@@ -384,7 +384,7 @@ $ %s tx conn demo-path --timeout 5s`,
 		},
 	}
 
-	return overrideFlag(a.Viper, clientParameterFlags(a.Viper, retryFlag(a.Viper, timeoutFlag(a.Viper, cmd))))
+	return newFlagger(a.Viper, cmd).ClientParameters().Override().Retry().Timeout().Command()
 }
 
 func closeChannelCmd(a *appState) *cobra.Command {
@@ -422,7 +422,7 @@ $ %s tx channel-close demo-path -o 3s`,
 		},
 	}
 
-	return timeoutFlag(a.Viper, cmd)
+	return newFlagger(a.Viper, cmd).Timeout().Command()
 }
 
 func linkCmd(a *appState) *cobra.Command {
@@ -516,7 +516,7 @@ $ %s tx connect demo-path`,
 		},
 	}
 
-	return overrideFlag(a.Viper, clientParameterFlags(a.Viper, retryFlag(a.Viper, timeoutFlag(a.Viper, cmd))))
+	return newFlagger(a.Viper, cmd).ClientParameters().Override().Retry().Timeout().Command()
 }
 
 func linkThenStartCmd(a *appState) *cobra.Command {
@@ -544,7 +544,7 @@ $ %s tx link-then-start demo-path --timeout 5s`, appName, appName)),
 		},
 	}
 
-	return overrideFlag(a.Viper, clientParameterFlags(a.Viper, strategyFlag(a.Viper, retryFlag(a.Viper, timeoutFlag(a.Viper, cmd)))))
+	return newFlagger(a.Viper, cmd).ClientParameters().Override().Strategy().Timeout().Command()
 }
 
 func relayMsgCmd(a *appState) *cobra.Command {
@@ -587,7 +587,7 @@ $ %s tx relay-pkt demo-path 1`,
 		},
 	}
 
-	return strategyFlag(a.Viper, cmd)
+	return newFlagger(a.Viper, cmd).Strategy().Command()
 }
 
 func relayMsgsCmd(a *appState) *cobra.Command {
@@ -629,7 +629,7 @@ $ %s tx relay-pkts demo-path`,
 		},
 	}
 
-	return strategyFlag(a.Viper, cmd)
+	return newFlagger(a.Viper, cmd).Strategy().Command()
 }
 
 func relayAcksCmd(a *appState) *cobra.Command {
@@ -673,7 +673,7 @@ $ %s tx relay-acks demo-path -l 3 -s 6`,
 		},
 	}
 
-	return strategyFlag(a.Viper, cmd)
+	return newFlagger(a.Viper, cmd).Strategy().Command()
 }
 
 // TODO still needs a revisit
@@ -824,7 +824,7 @@ $ %s tx raw send ibc-0 ibc-1 100000stake cosmos1skjwj5whet0lpe65qaq4rpq03hjxlwd9
 		},
 	}
 
-	return timeoutFlags(a.Viper, pathFlag(a.Viper, cmd))
+	return newFlagger(a.Viper, cmd).Path().Timeout().Command()
 }
 
 func setPathsFromArgs(a *appState, src, dst *relayer.Chain, name string) error {

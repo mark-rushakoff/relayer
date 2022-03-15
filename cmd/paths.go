@@ -108,7 +108,7 @@ $ %s pth l`, appName, appName, appName)),
 			}
 		},
 	}
-	return yamlFlag(a.Viper, jsonFlag(a.Viper, cmd))
+	return newFlagger(a.Viper, cmd).YAML().JSON().Command()
 }
 
 func printPath(stdout io.Writer, i int, k string, pth *relayer.Path, chains, clients, connection, channel string) {
@@ -169,7 +169,7 @@ $ %s pth s path-name`, appName, appName, appName)),
 			return nil
 		},
 	}
-	return yamlFlag(a.Viper, jsonFlag(a.Viper, cmd))
+	return newFlagger(a.Viper, cmd).YAML().JSON().Command()
 }
 
 func pathsAddCmd(a *appState) *cobra.Command {
@@ -207,7 +207,7 @@ $ %s pth a ibc-0 ibc-1 demo-path`, appName, appName, appName)),
 			return a.OverwriteConfig(a.Config)
 		},
 	}
-	return fileFlag(a.Viper, cmd)
+	return newFlagger(a.Viper, cmd).File().Command()
 }
 
 func pathsNewCmd(a *appState) *cobra.Command {
@@ -251,7 +251,7 @@ $ %s pth n ibc-0 ibc-1 demo-path`, appName, appName, appName)),
 			return a.OverwriteConfig(a.Config)
 		},
 	}
-	return orderFlag(a.Viper, versionFlag(a.Viper, portFlag(a.Viper, cmd)))
+	return newFlagger(a.Viper, cmd).Port().Version().Order().Command()
 }
 
 // pathsFetchCmd attempts to fetch the json files containing the path metadata, for each configured chain, from GitHub

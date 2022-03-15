@@ -168,7 +168,7 @@ $ %s q txs ibc-0 "message.action=transfer"`,
 		},
 	}
 
-	return paginationFlags(a.Viper, cmd)
+	return newFlagger(a.Viper, cmd).Pagination().Command()
 }
 
 //func queryAccountCmd() *cobra.Command {
@@ -270,7 +270,7 @@ $ %s query balance ibc-0 testkey`,
 		},
 	}
 
-	return ibcDenomFlags(a.Viper, cmd)
+	return newFlagger(a.Viper, cmd).IBCDenom().Command()
 }
 
 func queryHeaderCmd(a *appState) *cobra.Command {
@@ -403,7 +403,7 @@ $ %s query client ibc-0 ibczeroclient --height 1205`,
 		},
 	}
 
-	return heightFlag(a.Viper, cmd)
+	return newFlagger(a.Viper, cmd).Height().Command()
 }
 
 func queryClientsCmd(a *appState) *cobra.Command {
@@ -582,7 +582,7 @@ $ %s query client-connections ibc-0 ibczeroclient --height 1205`,
 		},
 	}
 
-	return heightFlag(a.Viper, cmd)
+	return newFlagger(a.Viper, cmd).Height().Command()
 }
 
 func queryConnection(a *appState) *cobra.Command {
@@ -727,7 +727,7 @@ $ %s query channel ibc-2 ibctwochannel transfer --height 1205`,
 		},
 	}
 
-	return heightFlag(a.Viper, cmd)
+	return newFlagger(a.Viper, cmd).Height().Command()
 }
 
 func queryChannels(a *appState) *cobra.Command {
